@@ -1,0 +1,20 @@
+---
+install:
+  - '"C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64'
+build_script:
+  - nmake /f Makefile.vc
+notifications:
+  - auth_token:
+      secure: X+ymndzchVeC2LYsehzOt/GEMFfZJeTENeAU9lwNwTuCxBXFJNkuwZLd9joAtHgykHQoYqmEv/nH64+MA6nTlw==
+    channel: ci
+    on_build_failure: true
+    on_build_status_changed: true
+    on_build_success: true
+    provider: Slack
+  - on_build_failure: true
+    on_build_status_changed: true
+    on_build_success: false
+    provider: Email
+    subject: 'AppVeyor build {{status}}'
+    to:
+      - dev-ci@maxmind.com
