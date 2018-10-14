@@ -1056,7 +1056,7 @@ __mydns_rr_load(SQL *sqlConn, MYDNS_RR **rptr, uint32_t zone,
 
 int mydns_rr_load_all(SQL *sqlConn, MYDNS_RR **rptr, uint32_t zone,
 		      dns_qtype_t type,
-		      const char *name, const char *origin) {
+		      const char *name, const char *origin, char *clientAddr) {
 
   return __mydns_rr_load(sqlConn, rptr, zone, type, name, origin, NULL, NULL, clientAddr);
 }
