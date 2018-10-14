@@ -249,7 +249,9 @@ axfr_zone(TASK *t, MYDNS_SOA *soa) {
   */
   if (soa->id) {
     MYDNS_RR *ThisRR = NULL, *rr = NULL;
-
+    // Get client IP.
+    char *clientAddr = clientaddr(t);
+    
     if (mydns_rr_load_active(sql, &ThisRR, soa->id, DNS_QTYPE_ANY, NULL, soa->origin, clientAddr) == 0) {
 
     // Modify by Moriarti <mor.moriarti@gmail.com> at 2016-05-03 18:04:07 GMT+2.

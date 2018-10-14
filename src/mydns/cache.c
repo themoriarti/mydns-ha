@@ -588,6 +588,8 @@ zone_cache_find(TASK *t, uint32_t zone, char *origin, dns_qtype_t type,
     DebugX("cache", 1, _("%s: SQL query: table \"%s\", zone=%u,type=\"%s\",name=\"%s\""),
 	   desctask(t), mydns_rr_table_name, zone, mydns_qtype_str(type), name);
 #endif
+// Get client IP.
+char *clientAddr = clientaddr(t);
     if (mydns_rr_load_active(sql, &rr, zone, type, name, origin, clientAddr) != 0) {
       sql_reopen();
       if (mydns_rr_load_active(sql, &rr, zone, type, name, origin, clientAddr) != 0) {
