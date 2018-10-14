@@ -2015,6 +2015,8 @@ check_tmprr(TASK *t, MYDNS_SOA *soa, UQ *q) {
     DebugX("update", 1, _("%s: DNS UPDATE: Checking prerequisite RRsets for %s/%s"), desctask(t),
 	   current_name, mydns_qtype_str(current_type));
 #endif
+// Get client IP.
+char *clientAddr = clientaddr(t);
 
     /* Load all RRs for this name/type */
     if (mydns_rr_load_active(sql, &rr_first, soa->id, current_type, (char*)current_name, NULL, clientAddr) != 0) {
