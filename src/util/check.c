@@ -257,12 +257,12 @@ static char *
 shortname(char *name_to_shorten, int empty_name_is_ok) {
   size_t nlen = strlen(name_to_shorten), olen = strlen(soa->origin);
 
-  if (nlen < olen) 
+  if (nlen < olen)
     return (name_to_shorten);
   if (!strcasecmp(soa->origin, name_to_shorten)) {
-    if (empty_name_is_ok) 
+    if (empty_name_is_ok)
       return ((char*)"");
-    else 
+    else
       return (name_to_shorten);
   }
   if (!strcasecmp(name_to_shorten + nlen - olen, soa->origin))
@@ -281,7 +281,7 @@ check_name(const char *name_in, const char *col, int is_rr, int allow_underscore
   char		*buf, *b, *label;
   char		*fqdn;
   int		fqdnlen;
-  
+
   fqdnlen = strlen(name_in);
   if (is_rr && *name_in && LASTCHAR(name_in) != '.') fqdnlen += strlen(soa->origin) + 1;
 
@@ -600,7 +600,7 @@ check_rr(void) {
 }
 /*--- check_rr() --------------------------------------------------------------------------------*/
 
-                                                                                                                               
+
 
 /**************************************************************************************************
 	CHECK_ZONE
@@ -627,11 +627,11 @@ check_zone(void) {
 #endif
   res = sql_query(sql, query, strlen(query));
   RELEASE(query);
-  if (!res) 
+  if (!res)
     return;
 
   while ((row = sql_getrow(res, &lengths))) {
-    if (!(rr = mydns_rr_parse(row, lengths, soa->origin, clientAddr)))
+    if (!(rr = mydns_rr_parse(row, lengths, soa->origin, NULL)))
       continue;
     check_rr();
     mydns_rr_free(rr);
@@ -751,7 +751,7 @@ main(int argc, char **argv) {
 
   if (opt_consistency)
     consistency_check();					/* Do consistency check if requested */
-  
+
   meter(0, 0);
   if (!syntax_errors && !consistency_errors)
     Verbose(_("No errors"));
