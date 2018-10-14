@@ -304,7 +304,7 @@ ixfr(TASK * t, datasection_t section, dns_qtype_t qtype, char *fqdn, int truncat
 	  t->sort_level++;
 	  soa->serial = latest_serial;
 	  if (mydns_rr_load_deleted_filtered(sql, &ThisRR, soa->id, DNS_QTYPE_ANY, NULL, soa->origin,
-					     deltafilter) == 0) {
+					     deltafilter, clientAddr) == 0) {
 	    for (rr = ThisRR; rr; rr = rr->next) {
 	      char *name = mydns_rr_append_origin(MYDNS_RR_NAME(rr), soa->origin);
 	      rrlist_add(t, ANSWER, DNS_RRTYPE_RR, (void *)rr, name);
@@ -316,7 +316,7 @@ ixfr(TASK * t, datasection_t section, dns_qtype_t qtype, char *fqdn, int truncat
 	  rrlist_add(t, ANSWER, DNS_RRTYPE_SOA, (void *)soa, soa->origin);
 	  t->sort_level++;
 	  if (mydns_rr_load_active_filtered(sql, &ThisRR, soa->id, DNS_QTYPE_ANY, NULL, soa->origin,
-					    deltafilter) == 0) {
+					    deltafilter, clientAddr) == 0) {
 	    for (rr = ThisRR; rr; rr = rr->next) {
 	      char *name = mydns_rr_append_origin(MYDNS_RR_NAME(rr), soa->origin);
 	      rrlist_add(t, ANSWER, DNS_RRTYPE_RR, (void *)rr, name);
