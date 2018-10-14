@@ -495,7 +495,7 @@ dump_rr_long(MYDNS_SOA *soa) {
   while ((row = sql_getrow(res, &lengths))) {
     MYDNS_RR *rr;
 
-    if (!(rr = mydns_rr_parse(row, lengths, soa->origin, clientAddr)))
+    if (!(rr = mydns_rr_parse(row, lengths, soa->origin, NULL)))
       continue;
     dump_rr(soa, rr, maxlen);
     mydns_rr_free(rr);
