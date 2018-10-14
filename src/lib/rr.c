@@ -1069,42 +1069,42 @@ int mydns_rr_load_active(SQL *sqlConn, MYDNS_RR **rptr, uint32_t zone,
 
 int mydns_rr_load_inactive(SQL *sqlConn, MYDNS_RR **rptr, uint32_t zone,
 			   dns_qtype_t type,
-			   const char *name, const char *origin) {
+			   const char *name, const char *origin, char *clientAddr) {
 
   return __mydns_rr_load(sqlConn, rptr, zone, type, name, origin, mydns_rr_active_types[1], NULL, clientAddr);
 }
 
 int mydns_rr_load_deleted(SQL *sqlConn, MYDNS_RR **rptr, uint32_t zone,
 			  dns_qtype_t type,
-			  const char *name, const char *origin) {
+			  const char *name, const char *origin, char *clientAddr) {
 
   return __mydns_rr_load(sqlConn, rptr, zone, type, name, origin, mydns_rr_active_types[2], NULL, clientAddr);
 }
 
 int mydns_rr_count_all(SQL *sqlConn, uint32_t zone,
 		       dns_qtype_t type,
-		       const char *name, const char *origin) {
+		       const char *name, const char *origin, char *clientAddr) {
 
   return __mydns_rr_count(sqlConn, zone, type, name, origin, mydns_rr_active_types[0], NULL);
 }
 
 int mydns_rr_count_active(SQL *sqlConn, uint32_t zone,
 			  dns_qtype_t type,
-			  const char *name, const char *origin) {
+			  const char *name, const char *origin, char *clientAddr) {
 
   return __mydns_rr_count(sqlConn, zone, type, name, origin, mydns_rr_active_types[0], NULL);
 }
 
 int mydns_rr_count_inactive(SQL *sqlConn, uint32_t zone,
 			    dns_qtype_t type,
-			    const char *name, const char *origin) {
+			    const char *name, const char *origin, char *clientAddr) {
 
   return __mydns_rr_count(sqlConn, zone, type, name, origin, mydns_rr_active_types[1], NULL);
 }
 
 int mydns_rr_count_deleted(SQL *sqlConn, uint32_t zone,
 			   dns_qtype_t type,
-			   const char *name, const char *origin) {
+			   const char *name, const char *origin, char *clientAddr) {
 
   return __mydns_rr_count(sqlConn, zone, type, name, origin, mydns_rr_active_types[2], NULL);
 }
@@ -1112,28 +1112,28 @@ int mydns_rr_count_deleted(SQL *sqlConn, uint32_t zone,
 
 int mydns_rr_load_all_filtered(SQL *sqlConn, MYDNS_RR **rptr, uint32_t zone,
 			       dns_qtype_t type,
-			       const char *name, const char *origin, const char *filter) {
+			       const char *name, const char *origin, const char *filter, char *clientAddr) {
 
   return __mydns_rr_load(sqlConn, rptr, zone, type, name, origin, NULL, filter, clientAddr);
 }
 
 int mydns_rr_load_active_filtered(SQL *sqlConn, MYDNS_RR **rptr, uint32_t zone,
 				  dns_qtype_t type,
-				  const char *name, const char *origin, const char *filter) {
+				  const char *name, const char *origin, const char *filter, char *clientAddr) {
 
   return __mydns_rr_load(sqlConn, rptr, zone, type, name, origin, mydns_rr_active_types[0], filter, clientAddr);
 }
 
 int mydns_rr_load_inactive_filtered(SQL *sqlConn, MYDNS_RR **rptr, uint32_t zone,
 				    dns_qtype_t type,
-				    const char *name, const char *origin, const char *filter) {
+				    const char *name, const char *origin, const char *filter, char *clientAddr) {
 
   return __mydns_rr_load(sqlConn, rptr, zone, type, name, origin, mydns_rr_active_types[1], filter, clientAddr);
 }
 
 int mydns_rr_load_deleted_filtered(SQL *sqlConn, MYDNS_RR **rptr, uint32_t zone,
 				   dns_qtype_t type,
-				   const char *name, const char *origin, const char *filter) {
+				   const char *name, const char *origin, const char *filter, char *clientAddr) {
 
   return __mydns_rr_load(sqlConn, rptr, zone, type, name, origin, mydns_rr_active_types[2], filter, clientAddr);
 }
