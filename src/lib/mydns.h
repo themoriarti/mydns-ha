@@ -576,7 +576,7 @@ extern char		*mydns_rr_columns(void);
 extern char		*mydns_rr_prepare_query(uint32_t, dns_qtype_t, const char *,
 						const char *, const char *, const char *, const char *);
 extern int		mydns_rr_load_all(SQL *, MYDNS_RR **, uint32_t, dns_qtype_t, const char *, const char *, char *);
-extern int		mydns_rr_load_active(SQL *, MYDNS_RR **, uint32_t, dns_qtype_t, const char *, const char *);
+extern int		mydns_rr_load_active(SQL *, MYDNS_RR **, uint32_t, dns_qtype_t, const char *, const char *, char *);
 extern int		mydns_rr_load_inactive(SQL *, MYDNS_RR **, uint32_t, dns_qtype_t, const char *, const char *);
 extern int		mydns_rr_load_deleted(SQL *, MYDNS_RR **, uint32_t, dns_qtype_t, const char *, const char *);
 extern int		mydns_rr_count_all(SQL *, uint32_t, dns_qtype_t, const char *, const char *);

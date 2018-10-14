@@ -199,7 +199,7 @@ cache_size_update(CACHE *C) {
 	  else
 	    C->size += mydns_rr_size((MYDNS_RR *)N->data);
 	}
-      } else 
+      } else
 	C->size += N->datalen;
     }
 }
@@ -588,14 +588,10 @@ zone_cache_find(TASK *t, uint32_t zone, char *origin, dns_qtype_t type,
     DebugX("cache", 1, _("%s: SQL query: table \"%s\", zone=%u,type=\"%s\",name=\"%s\""),
 	   desctask(t), mydns_rr_table_name, zone, mydns_qtype_str(type), name);
 #endif
-    if (mydns_rr_load_active(sql, &rr, zone, type, name, origin) != 0) {
-//    if (mydns_rr_load_active(sql, &rr, zone, type, name, origin,client_addr) != 0) {
-
+    if (mydns_rr_load_active(sql, &rr, zone, type, name, origin, clientAddr) != 0) {
       sql_reopen();
-      if (mydns_rr_load_active(sql, &rr, zone, type, name, origin) != 0) {
-    //    if (mydns_rr_load_active(sql, &rr, zone, type, name, origin, client_addr) != 0) {
-
-	WarnSQL(sql, _("error finding %s type resource records for name `%s' in zone %u"),
+      if (mydns_rr_load_active(sql, &rr, zone, type, name, origin, clientAddr) != 0) {
+	       WarnSQL(sql, _("error finding %s type resource records for name `%s' in zone %u"),
 		mydns_qtype_str(type), name, zone);
 	sql_reopen();
 	*errflag = 1;

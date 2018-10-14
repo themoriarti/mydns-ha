@@ -37,7 +37,7 @@ static size_t total_records, total_octets;
 /* static void axfr_error(TASK *, const char *, ...) __attribute__ ((__noreturn__)); */
 static void
 axfr_error(TASK *t, const char *fmt, ...) {
-  va_list	ap; 
+  va_list	ap;
   char		*msg = NULL;
 
   if (t) {
@@ -250,12 +250,9 @@ axfr_zone(TASK *t, MYDNS_SOA *soa) {
   if (soa->id) {
     MYDNS_RR *ThisRR = NULL, *rr = NULL;
 
-    if (mydns_rr_load_active(sql, &ThisRR, soa->id, DNS_QTYPE_ANY, NULL, soa->origin) == 0) {
+    if (mydns_rr_load_active(sql, &ThisRR, soa->id, DNS_QTYPE_ANY, NULL, soa->origin, clientAddr) == 0) {
 
     // Modify by Moriarti <mor.moriarti@gmail.com> at 2016-05-03 18:04:07 GMT+2.
-//    snprintf(client_addr, sizeof(client_addr), clientaddr(t));
-//    if (mydns_rr_load_active(sql, &ThisRR, soa->id, DNS_QTYPE_ANY, NULL, soa->origin, client_addr) == 0) {
-    //
       for (rr = ThisRR; rr; rr = rr->next) {
 	/* If 'name' doesn't end with a dot, append the origin */
 	if (!*MYDNS_RR_NAME(rr) || LASTCHAR(MYDNS_RR_NAME(rr)) != '.') {
@@ -348,7 +345,7 @@ axfr(TASK *t) {
 #if DEBUG_ENABLED && DEBUG_AXFR
   /* Report result */
   gettimeofday(&finish, NULL);
-  DebugX("axfr", 1,_("AXFR: %u records, %u octets, %.3fs"), 
+  DebugX("axfr", 1,_("AXFR: %u records, %u octets, %.3fs"),
 	 (unsigned int)total_records, (unsigned int)total_octets,
 	 ((finish.tv_sec + finish.tv_usec / 1000000.0) - (start.tv_sec + start.tv_usec / 1000000.0)));
 #endif
@@ -367,7 +364,7 @@ axfr_fork(TASK *t) {
   int pfd[2] = { -1, -1 };				/* Parent/child pipe descriptors */
   pid_t pid = -1, parent = -1;
 
-#if DEBUG_ENABLED && DEBUG_AXFR 
+#if DEBUG_ENABLED && DEBUG_AXFR
   DebugX("axfr", 1,_("%s: axfr_fork called on fd %d"), desctask(t), t->fd);
 #endif
 

@@ -251,7 +251,7 @@ ixfr(TASK * t, datasection_t section, dns_qtype_t qtype, char *fqdn, int truncat
       char	*deltafilter = NULL;
       int	deletecount, activecount, zonesize;
       size_t	deltasize, fullsize;
-       
+
       /* For very large zones we do not want to load all of the records just to give up */
       sql_build_query(&deltafilter, "serial > %u", q->IR.serial);
 
@@ -283,7 +283,7 @@ ixfr(TASK * t, datasection_t section, dns_qtype_t qtype, char *fqdn, int truncat
 	  /* Current Serial first */
 	  rrlist_add(t, ANSWER, DNS_RRTYPE_SOA, (void *)soa, soa->origin);
 	  t->sort_level++;
-	  if (mydns_rr_load_active(sql, &ThisRR, soa->id, DNS_QTYPE_ANY, NULL, soa->origin) == 0) {
+	  if (mydns_rr_load_active(sql, &ThisRR, soa->id, DNS_QTYPE_ANY, NULL, soa->origin, clientAddr) == 0) {
 	    for (rr = ThisRR; rr; rr = rr->next) {
 	      char *name = mydns_rr_append_origin(MYDNS_RR_NAME(rr), soa->origin);
 	      rrlist_add(t, ANSWER, DNS_RRTYPE_RR, (void *)rr, name);
@@ -421,7 +421,7 @@ ixfr_purge_all_soas(TASK *t, void *data) {
   }
 
   sql_free(res);
-  RELEASE(query);     
+  RELEASE(query);
 
   return (TASK_CONTINUE);
 }

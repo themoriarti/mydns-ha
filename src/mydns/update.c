@@ -1021,7 +1021,7 @@ check_prerequisite(TASK *t, MYDNS_SOA *soa, UQ *q, UQRR *rr) {
 #if DEBUG_ENABLED && DEBUG_UPDATE
     DebugX("update", 1, _("%s: DNS UPDATE: check_prerequisite failed: TTL nonzero"), desctask(t));
 #endif
-    return dnserror(t, DNS_RCODE_FORMERR, ERR_INVALID_TTL);	
+    return dnserror(t, DNS_RCODE_FORMERR, ERR_INVALID_TTL);
   }
 
   /* rr->name must be in-zone */
@@ -1040,7 +1040,7 @@ check_prerequisite(TASK *t, MYDNS_SOA *soa, UQ *q, UQRR *rr) {
       DebugX("update", 1, _("%s: DNS UPDATE: check_prerequisite failed: class is ANY but rdlength is nonzero"),
 	     desctask(t));
 #endif
-      return dnserror(t, DNS_RCODE_FORMERR, ERR_INVALID_DATA);	
+      return dnserror(t, DNS_RCODE_FORMERR, ERR_INVALID_DATA);
     }
     if (rr->type == DNS_QTYPE_ANY) {
       if ((rv = update_zone_has_name(t, soa, rr)) != 1) {
@@ -1072,7 +1072,7 @@ check_prerequisite(TASK *t, MYDNS_SOA *soa, UQ *q, UQRR *rr) {
       DebugX("update", 1, _("%s: DNS UPDATE: check_prerequisite failed: class is NONE but rdlength is zero"),
 	     desctask(t));
 #endif
-      return dnserror(t, DNS_RCODE_FORMERR, ERR_INVALID_DATA);	
+      return dnserror(t, DNS_RCODE_FORMERR, ERR_INVALID_DATA);
     }
     if (rr->type == DNS_QTYPE_ANY) {
       if ((rv = update_zone_has_name(t, soa, rr)) != 0) {
@@ -2017,9 +2017,9 @@ check_tmprr(TASK *t, MYDNS_SOA *soa, UQ *q) {
 #endif
 
     /* Load all RRs for this name/type */
-    if (mydns_rr_load_active(sql, &rr_first, soa->id, current_type, (char*)current_name, NULL) != 0) {
+    if (mydns_rr_load_active(sql, &rr_first, soa->id, current_type, (char*)current_name, NULL, clientAddr) != 0) {
       sql_reopen();
-      if (mydns_rr_load_active(sql, &rr_first, soa->id, current_type, (char*)current_name, NULL) != 0) {
+      if (mydns_rr_load_active(sql, &rr_first, soa->id, current_type, (char*)current_name, NULL, clientAddr) != 0) {
 	WarnSQL(sql, _("error finding %s type resource records for name `%s' in zone %u"),
 		mydns_qtype_str(current_type), current_name, soa->id);
 	sql_reopen();
