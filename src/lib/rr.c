@@ -370,7 +370,7 @@ mydns_rr_parse_txt(const char *origin, MYDNS_RR *rr) {
     data = &data[elemlen+1];
     datalen -= elemlen + 1;
   }
-  
+
   return 0;
 }
 
@@ -404,7 +404,7 @@ mydns_rr_name_append_origin(MYDNS_RR *rr, char *origin) {
   if (__MYDNS_RR_NAME(rr) != res) RELEASE(__MYDNS_RR_NAME(rr));
   __MYDNS_RR_NAME(rr) = res;
 }
-      
+
 void
 mydns_rr_data_append_origin(MYDNS_RR *rr, char *origin) {
   char *res = mydns_rr_append_origin(__MYDNS_RR_DATA_VALUE(rr), origin);
@@ -412,7 +412,7 @@ mydns_rr_data_append_origin(MYDNS_RR *rr, char *origin) {
   __MYDNS_RR_DATA_VALUE(rr) = res;
   __MYDNS_RR_DATA_LENGTH(rr) = strlen(__MYDNS_RR_DATA_VALUE(rr));
 }
-      
+
 /**************************************************************************************************
 	_MYDNS_RR_FREE
 	Frees the pointed-to structure.	Don't call this function directly, call the macro.
@@ -586,7 +586,7 @@ mydns_rr_build(uint32_t id,
 	Returns NULL on error.
 **************************************************************************************************/
 inline MYDNS_RR *
-mydns_rr_parse(SQL_ROW row, unsigned long *lengths, const char *origin) {
+mydns_rr_parse(SQL_ROW row, unsigned long *lengths, const char *origin, char* clientAddr) {
 
   dns_qtype_t	type;
   char		*active = NULL;
@@ -612,11 +612,10 @@ mydns_rr_parse(SQL_ROW row, unsigned long *lengths, const char *origin) {
     return (NULL);
   }
 // GeoDNS code
-	//static char clientAddr[16];
-	//snprintf(clientAddr, sizeof(clientAddr), clientaddr(t));
-extern char *clientAddr;
-
-	//clientAddr = clientaddr(t);
+//static char clientAddr[16];
+//snprintf(clientAddr, sizeof(clientAddr), clientaddr(t));
+//extern char *clientAddr;
+//clientAddr = clientaddr(t);
 //	row = "{\"UA\": \"109.12.12.32\", \"RU\": \"144.76.80.78\", \"default\": \"192.168.1.1\"}";
 	if (strncmp(row[3],"{",1) == 0) {
 	    json_object * jobj = json_tokener_parse(row[3]);
@@ -786,7 +785,7 @@ mydns_rr_size(MYDNS_RR *first) {
     default:
       break;
     }
-  }    
+  }
 
   return (size);
 }
@@ -949,7 +948,7 @@ mydns_rr_prepare_query(uint32_t zone, dns_qtype_t type, const char *name, const 
 
   return (query);
 }
-			 
+
 static int __mydns_rr_do_load(SQL *sqlConn, MYDNS_RR **rptr, const char *query, const char *origin) {
   MYDNS_RR	*first = NULL, *last = NULL;
   char		*cp;
@@ -988,7 +987,7 @@ static int __mydns_rr_do_load(SQL *sqlConn, MYDNS_RR **rptr, const char *query, 
   while ((row = sql_getrow(res, &lengths))) {
     MYDNS_RR *new;
 
-    if (!(new = mydns_rr_parse(row, lengths, origin)))
+    if (!(new = mydns_rr_parse(row, lengths, origin, clientAddr)))
       continue;
 
     /* Always trim origin from name (XXX: Why? When did I add this?) */
@@ -1036,7 +1035,7 @@ __mydns_rr_count(SQL *sqlConn, uint32_t zone,
   return result;
 }
 
-static int 
+static int
 __mydns_rr_load(SQL *sqlConn, MYDNS_RR **rptr, uint32_t zone,
 		dns_qtype_t type,
 		const char *name, const char *origin, const char *active, const char *filter) {

@@ -252,7 +252,7 @@ typedef enum _task_error_t					/* Common errors */
 
 
 typedef enum							/* Query classes */
-{                                      
+{
 	DNS_CLASS_UNKNOWN 	= -1,				/* Unknown */
 
 	DNS_CLASS_IN		= 1,				/* Internet */
@@ -381,7 +381,7 @@ typedef enum
 	DNS_RCODE_NOTZONE		= 10,		/* Name not contained in zone (RFC 2136) */
 
 	/* Codes that can't fit in 4 bits are found in OPT (RFC 2671), TSIG (RFC 2845), and
-		TKEY (RFC 2930) RRs */ 
+		TKEY (RFC 2930) RRs */
 	/* RFC 2671 says that rcode 16 is BADVERS ("Bad OPT version").  This conlicts with
 		RFC 2845.  RFC 2845 seems like best current practice. */
 
@@ -571,7 +571,7 @@ extern MYDNS_RR		*mydns_rr_build(uint32_t, uint32_t, dns_qtype_t, dns_class_t, u
 					MYSQL_TIME *stamp,
 #endif
 					uint32_t, char *, char *,  uint16_t, const char *);
-extern MYDNS_RR		*mydns_rr_parse(SQL_ROW, unsigned long *, const char *);
+extern MYDNS_RR		*mydns_rr_parse(SQL_ROW, unsigned long *, const char *, char *);
 extern char		*mydns_rr_columns(void);
 extern char		*mydns_rr_prepare_query(uint32_t, dns_qtype_t, const char *,
 						const char *, const char *, const char *, const char *);

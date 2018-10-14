@@ -315,7 +315,7 @@ tinydns_dump_soa(MYDNS_SOA *soa) {
 
   printf("Z%s:%s:%s:%u:%u:%u:%u:%u:%u\n",
 	 origin, ns, mbox,
-	 soa->serial, soa->refresh, soa->retry, soa->expire, soa->minimum, soa->ttl); 
+	 soa->serial, soa->refresh, soa->retry, soa->expire, soa->minimum, soa->ttl);
   RELEASE(origin);
   RELEASE(ns);
   RELEASE(mbox);
@@ -495,10 +495,10 @@ dump_rr_long(MYDNS_SOA *soa) {
   while ((row = sql_getrow(res, &lengths))) {
     MYDNS_RR *rr;
 
-    if (!(rr = mydns_rr_parse(row, lengths, soa->origin)))
+    if (!(rr = mydns_rr_parse(row, lengths, soa->origin, clientAddr)))
       continue;
     dump_rr(soa, rr, maxlen);
-    mydns_rr_free(rr);		
+    mydns_rr_free(rr);
   }
   sql_free(res);
 
@@ -564,7 +564,7 @@ main(int argc, char **argv) {
 
   while (optind < argc)
     dump_zone((char *)argv[optind++]);
- 
+
   return (0);
 }
 /*--- main() ------------------------------------------------------------------------------------*/
