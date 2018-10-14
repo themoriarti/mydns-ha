@@ -586,7 +586,7 @@ mydns_rr_build(uint32_t id,
 	Returns NULL on error.
 **************************************************************************************************/
 inline MYDNS_RR *
-mydns_rr_parse(SQL_ROW row, unsigned long *lengths, const char *origin, char* clientAddr) {
+mydns_rr_parse(SQL_ROW row, unsigned long *lengths, const char *origin, char *clientAddr) {
 
   dns_qtype_t	type;
   char		*active = NULL;
@@ -949,7 +949,7 @@ mydns_rr_prepare_query(uint32_t zone, dns_qtype_t type, const char *name, const 
   return (query);
 }
 
-static int __mydns_rr_do_load(SQL *sqlConn, MYDNS_RR **rptr, const char *query, const char *origin, char clientAddr) {
+static int __mydns_rr_do_load(SQL *sqlConn, MYDNS_RR **rptr, const char *query, const char *origin, char *clientAddr) {
   MYDNS_RR	*first = NULL, *last = NULL;
   char		*cp;
   SQL_RES	*res;
