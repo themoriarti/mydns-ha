@@ -183,7 +183,8 @@ ixfr(TASK * t, datasection_t section, dns_qtype_t qtype, char *fqdn, int truncat
 
   DNS_GET16(q->type, src);
   DNS_GET16(q->class, src);
-
+  // Get client IP.
+    char *clientAddr = clientaddr(t);
   if (!(src = ixfr_gobble_authority_rr(t, query, querylen, src, &q->IR))) {
     free_iq(q);
     return (TASK_FAILED);
@@ -283,9 +284,6 @@ ixfr(TASK * t, datasection_t section, dns_qtype_t qtype, char *fqdn, int truncat
 	  /* Current Serial first */
 	  rrlist_add(t, ANSWER, DNS_RRTYPE_SOA, (void *)soa, soa->origin);
 	  t->sort_level++;
-    // Get client IP.
-    char *clientAddr = clientaddr(t);
-    
     if (mydns_rr_load_active(sql, &ThisRR, soa->id, DNS_QTYPE_ANY, NULL, soa->origin, clientAddr) == 0) {
 	    for (rr = ThisRR; rr; rr = rr->next) {
 	      char *name = mydns_rr_append_origin(MYDNS_RR_NAME(rr), soa->origin);
