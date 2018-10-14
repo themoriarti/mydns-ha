@@ -1038,7 +1038,7 @@ __mydns_rr_count(SQL *sqlConn, uint32_t zone,
 static int
 __mydns_rr_load(SQL *sqlConn, MYDNS_RR **rptr, uint32_t zone,
 		dns_qtype_t type,
-		const char *name, const char *origin, const char *active, const char *filter, char clientAddr) {
+		const char *name, const char *origin, const char *active, const char *filter, char *clientAddr) {
   char		*query = NULL;
   int		res;
   char		*columns = NULL;
