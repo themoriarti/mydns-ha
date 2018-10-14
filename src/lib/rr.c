@@ -1083,28 +1083,28 @@ int mydns_rr_load_deleted(SQL *sqlConn, MYDNS_RR **rptr, uint32_t zone,
 
 int mydns_rr_count_all(SQL *sqlConn, uint32_t zone,
 		       dns_qtype_t type,
-		       const char *name, const char *origin, char *clientAddr) {
+		       const char *name, const char *origin) {
 
   return __mydns_rr_count(sqlConn, zone, type, name, origin, mydns_rr_active_types[0], NULL);
 }
 
 int mydns_rr_count_active(SQL *sqlConn, uint32_t zone,
 			  dns_qtype_t type,
-			  const char *name, const char *origin, char *clientAddr) {
+			  const char *name, const char *origin) {
 
   return __mydns_rr_count(sqlConn, zone, type, name, origin, mydns_rr_active_types[0], NULL);
 }
 
 int mydns_rr_count_inactive(SQL *sqlConn, uint32_t zone,
 			    dns_qtype_t type,
-			    const char *name, const char *origin, char *clientAddr) {
+			    const char *name, const char *origin) {
 
   return __mydns_rr_count(sqlConn, zone, type, name, origin, mydns_rr_active_types[1], NULL);
 }
 
 int mydns_rr_count_deleted(SQL *sqlConn, uint32_t zone,
 			   dns_qtype_t type,
-			   const char *name, const char *origin, char *clientAddr) {
+			   const char *name, const char *origin) {
 
   return __mydns_rr_count(sqlConn, zone, type, name, origin, mydns_rr_active_types[2], NULL);
 }
