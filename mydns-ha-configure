@@ -1,0 +1,4 @@
+#!/bin/bash
+
+./configure --prefix=/usr/local/mydns-ha --with-mysql --with-mysql-lib=/usr/lib64 --with-mysql-include=/usr/include/mysql
+LDFLAGS="" make
