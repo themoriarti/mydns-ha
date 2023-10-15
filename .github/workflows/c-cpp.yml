@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: mysql-install
-      run: apt install mysql-server mysql-common mysql-client
+      run: apt-get update&&apt-get install mysql-server mysql-common mysql-client
     - name: perms
       run: chmod +x ./configure
     - name: configure
