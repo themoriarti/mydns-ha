@@ -18,7 +18,7 @@ jobs:
     - name: perms
       run: chmod +x ./configure
     - name: configure
-      run: ./configure
+      run: ./configure --with-mysql --with-mysql-lib=/usr/lib/x86_64-linux-gnu/ --with-zlib=/usr/lib/x86_64-linux-gnu/
     - name: make
       run: make
     - name: make check
